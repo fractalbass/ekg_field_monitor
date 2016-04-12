@@ -23,7 +23,7 @@ import processing.serial.*;
 Serial myPort;  // The serial port
     
     byte[] bytes = new byte[15];    // Used to hold the last 15 of 17 bytes in the stream.
-    int[] yOffset = {0, 150, 300};  // Used for the 2x3 waveform grid display   
+    int[] yOffset = {150, 300, 450};  // Used for the 2x3 waveform grid display   
     int[] xOffset = {0,500};        // Used for the 2x3 waveform grid display.
     float[] y1old = {0,0,0,0,0,0};  // used to draw solid lines in graphing.
     float[] y2old = {0,0,0,0,0,0};  // used to draw solid lines in graphing.
@@ -63,7 +63,7 @@ void draw() {
         
         int y = lowByte + (256*highByte);             //  Combine the low and high bytes to get the original value.
         float yM = map(y, 0, 1023, 0, 150);           //  Adjust the data from a scale of 0-1023 to 0-150 for graphing.
-        float y1 = yOffset[c%3]+(yM);                 //  Adjust the graph Y value to the current row of the grid.
+        float y1 = yOffset[c%3]-(yM);                 //  Adjust the graph Y value to the current row of the grid.
         int xo = xOffset[c%2]+x;                      //  Adjust the graph X value to the current column of the grid.
         
         if (xo==0) {                 //  If we are starting the x axis over at 0, don't draw a line from the previous point.
